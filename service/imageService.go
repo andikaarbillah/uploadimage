@@ -75,6 +75,10 @@ func (is *imageService) Create(ctx *gin.Context, request model.ImageRequest) (*m
 }
 
 func (is *imageService) Delete(ctx *gin.Context, imageID string) error {
+	id := ctx.PostForm("id")
+	if err := ctx.ShouldBind(id); err != nil {
+		return nil
+	}
 	imgPath, err := is.ir.FindByID(imageID)
 	if err != nil {
 		return nil
